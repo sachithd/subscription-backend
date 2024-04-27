@@ -1,0 +1,9 @@
+* Run the following commands to setup the project
+    docker compose up -d
+    docker exec -it --user=$USER TwinklTestServer bash
+    composer install
+    mv .env.example .env
+    php artisan key:generate
+    php artisan migrate
+    php artisan db:seed --class=SubscriptionUserTypeSeeder
+    (Optional) php artisan test --coverage-html tests/reports/coverage
