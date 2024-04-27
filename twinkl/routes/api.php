@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\SubscriptionUserController;
+use App\Http\Middleware\EnsureIpAddressIsValid;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::post('/subscription_user',[SubscriptionUserController::class, 'store'])->middleware(EnsureIpAddressIsValid::class);
