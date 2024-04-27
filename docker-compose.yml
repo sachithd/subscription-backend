@@ -1,0 +1,32 @@
+version: '3.9'
+services:
+  webserver:
+    container_name: TwinklTestServer
+    build:
+      args:
+        user: ${USER}
+        uid: ${UID}
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www/html
+      - ./docker-config:/usr/local/etc/php/conf.d
+    ports:
+      - 8008:80
+    env_file: .env
+    depends_on:
+      - mysql-db
+
+  mysql-db:
+    image: mysql:8.0
+    env_file: .env
+    ports:
+      - "33066:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql-db
+    ports:
+      - "8009:80"
+    env_file: .env
