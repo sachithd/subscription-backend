@@ -1,19 +1,7 @@
-* Run the following commands to setup the project
+* Steps followed to complete the task using a Framework (Laravel) - FOR INFORMATION ONLY
 
-    docker compose up -d
-    docker exec -it --user=$USER TwinklTestServer bash
-    composer install
-    mv .env.example .env
-    php artisan key:generate
-    php artisan migrate
-    php artisan db:seed --class=SubscriptionUserTypeSeeder
-    (Optional) php artisan test --coverage-html tests/reports/coverage
-
-
-* Steps followed to complete the task using a Framework (Laravel) - FOR YOUR INFORMATION ONLY
-
-    1. Config changes to Docker / docker-compose.yml / .env supplied in the tech test
-    2. rename the php to docker-config for clarity
+    1. Config changes to Docker / docker-compose.yml / .env supplied in the tech test folder
+    2. Renamed the php to docker-config for clarity
     3. Run "docker compose up"
     4. Open container bash "docker exec -it --user=$USER TwinklTestServer bash"
     5. composer create-project laravel/laravel twinkl
@@ -46,6 +34,9 @@
         php artisan test --coverage-html tests/reports/coverage
 
     12. Merged the code to master branch
+    13. Updated Readme.md with instructions on how to setup the project
+    14. Pushed to Github
+        https://github.com/sachithd/subscription-backend
 
 
 
