@@ -10,7 +10,7 @@
     (Optional) php artisan test --coverage-html tests/reports/coverage
 
 
-* Steps followed to complete the task using a Framework (Laravel)
+* Steps followed to complete the task using a Framework (Laravel) - FOR YOUR INFORMATION ONLY
 
     1. Config changes to Docker / docker-compose.yml / .env supplied in the tech test
     2. rename the php to docker-config for clarity
