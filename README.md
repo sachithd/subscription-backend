@@ -17,10 +17,13 @@
 ## Header
 * Accept: application/json
 
-##JSON Payload 
-*   {
+## JSON Payload 
+* 
+```json
+{
         "first_name" : "Test",
         "last_name" : " User",
         "email" : "test.user@test.com",
         "user_type_id" : 1
-    }
+}
+```
