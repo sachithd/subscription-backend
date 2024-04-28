@@ -45,7 +45,11 @@
         php artisan test
         php artisan test --coverage-html tests/reports/coverage
 
-    14. Tools Used
+    12. Merged the code to master branch
+
+
+
+    Tools Used
             PHPStorm   (IDE)
             Postman    (Test POST method)
             PhpMyAdmin (Database)
