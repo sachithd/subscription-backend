@@ -16,7 +16,15 @@ class SubscriptionUserController extends Controller
 
     public function store(Request $request)
     {
+        //TODO Validate Input
         $subscriptionUser = $request->only(['first_name', 'last_name', 'email', 'user_type_id']);
-        return $this->success('api response', $subscriptionUser, 201);
+
+        $createSubscriptionUserResponse = $this->subscriptionUserService->createSubscriptionUserAndEmail($subscriptionUser);
+
+        if ($createSubscriptionUserResponse['error']) {
+            return $this->error($createSubscriptionUserResponse['message']);
+        }
+
+        return $this->success($createSubscriptionUserResponse['message'], $createSubscriptionUserResponse['data'], 201);
     }
 }
