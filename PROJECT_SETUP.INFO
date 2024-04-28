@@ -1,4 +1,5 @@
 * Run the following commands to setup the project
+
     docker compose up -d
     docker exec -it --user=$USER TwinklTestServer bash
     composer install
@@ -7,3 +8,46 @@
     php artisan migrate
     php artisan db:seed --class=SubscriptionUserTypeSeeder
     (Optional) php artisan test --coverage-html tests/reports/coverage
+
+
+* Steps followed to complete the task using a Framework (Laravel)
+
+    1. Config changes to Docker / docker-compose.yml / .env supplied in the tech test
+    2. rename the php to docker-config for clarity
+    3. Run "docker compose up"
+    4. Open container bash "docker exec -it --user=$USER TwinklTestServer bash"
+    5. composer create-project laravel/laravel twinkl
+    6. Initialise GIT inside the main directory (twinkl-php-tech-test-main) to include docker config files
+    7. Created a feature branch for tech test requirements
+    8. Using Laravel artisan commands to generate classes etc
+        Enabled REST API
+            php artisan install:api
+        Database Migration
+            php artisan make:migration create_subscription_users_table
+            php artisan make:migration create_subscription_user_types_table
+            php artisan make:migration modify_subscription_users_table
+        Seeder
+            php artisan make:seeder SubscriptionUserTypeSeeder
+        Controller
+            php artisan make:controller SubscriptionUserController
+        Middleware
+            php artisan make:middleware EnsureIpAddressIsValid
+        ENUM
+            php artisan make:enum Enums/SubscriptionUserType
+        Unit Test
+            php artisan make:test SubscriptionUserControllerTest
+
+    9. Code Implementation
+    10. Run the following commands to create / populate database
+        php artisan migrate
+        php artisan db:seed --class=SubscriptionUserTypeSeeder
+    11. Run Tests
+        php artisan test
+        php artisan test --coverage-html tests/reports/coverage
+
+    14. Tools Used
+            PHPStorm   (IDE)
+            Postman    (Test POST method)
+            PhpMyAdmin (Database)
+
+
