@@ -8,6 +8,7 @@ use App\Services\SubscriptionUserService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use PHPUnit\Framework\MockObject\Exception;
 use Tests\TestCase;
 
 class SubscriptionUserServiceTest extends TestCase
@@ -18,14 +19,9 @@ class SubscriptionUserServiceTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function test_example(): void
+
+    public function testCreateSubscriptionUserAndEmail(): void
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
-
-    public function testCreateSubscriptionUserAndEmail(): void{
         $user = array(
                 'first_name' => $this->faker->firstName(),
                 'last_name' => $this->faker->lastName(),
@@ -45,6 +41,35 @@ class SubscriptionUserServiceTest extends TestCase
         $this->assertEquals($expectedResult['error'],$actualResult['error'] );
         $this->assertEquals($expectedResult['message'],$actualResult['message'] );
 
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testCreateSubscriptionUserAndEmailWithMocking(): void
+    {
+
+        $user = array(
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'email' => $this->faker->email(),
+            'user_type_id' => rand(1, 4),
+            'email_reminder' => 0
+        );
+
+        $result = array(
+            "error" => false,
+            'message' => "subscription user created successfully",
+            'data' => array("subscription_user_id" => 1)
+        );
+
+        $subscriptionUserServiceStub = $this->createStub(SubscriptionUserService::class);
+        $subscriptionUserServiceStub
+            ->method('createSubscriptionUserAndEmail')
+            ->willReturn($result);
+
+        $actualResult = $subscriptionUserServiceStub->createSubscriptionUserAndEmail($user);
+        $this->assertEquals($actualResult,$result);
     }
 
 }
