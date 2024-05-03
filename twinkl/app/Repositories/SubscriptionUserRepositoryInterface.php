@@ -10,7 +10,7 @@ interface SubscriptionUserRepositoryInterface
 
     public function getSubscriptionUserById($id): ?Collection;
 
-    public function getUsersBySubscriptionEndDate(): array;
+    public function getUsersBySubscriptionEndDate(): ?Collection;
 
-    public function setEmailReminder($id, $hasNotified): int;
+    public function setEmailReminderStatus($id, $hasNotified): int;
 }

@@ -31,7 +31,7 @@ class RenewalReminder extends Command
         foreach ($usersDueForRenewal as $user) {
             $emailResponse = $this->sendEmail($user->email);
             if($emailResponse){
-                $repository->setEmailReminder($user->id, true);
+                $repository->setEmailReminderStatus($user->id, true);
             }
         }
     }

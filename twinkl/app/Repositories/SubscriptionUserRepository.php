@@ -44,21 +44,21 @@ class SubscriptionUserRepository implements SubscriptionUserRepositoryInterface
         return $data;
     }
 
-    public function getUsersBySubscriptionEndDate(): array
+    public function getUsersBySubscriptionEndDate(): ?Collection
     {
         $data = null;
         try {
-            $data = DB::select("SELECT * FROM subscription_users
-                                      WHERE
-                                      CURRENT_DATE = DATE(DATE_ADD(DATE_ADD(subscription_date, INTERVAL 1 YEAR), INTERVAL -1 WEEK))
-                                      AND email_reminder = 0");
+            $data = DB::table("subscription_users")
+                    ->whereRaw("CURRENT_DATE = DATE(DATE_ADD(DATE_ADD(subscription_date, INTERVAL 1 YEAR), INTERVAL -1 WEEK))")
+                    ->where("email_reminder", false)
+                    ->get();
         } catch (Exception $exception) {
             $this->logException($exception);
         }
         return $data;
     }
 
-    public function setEmailReminder($id, $hasNotified): int
+    public function setEmailReminderStatus($id, $hasNotified): int
     {
         $rowCount = -1;
         try {
