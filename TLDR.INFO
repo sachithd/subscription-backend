@@ -38,6 +38,8 @@
     14. Pushed to Github
         https://github.com/sachithd/subscription-backend
 
+    15. php artisan make:command RenewalReminder
+
 
 
     Tools Used

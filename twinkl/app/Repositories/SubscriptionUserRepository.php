@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
@@ -43,6 +44,36 @@ class SubscriptionUserRepository implements SubscriptionUserRepositoryInterface
         return $data;
     }
 
+    public function getUsersBySubscriptionEndDate(): array
+    {
+        $data = null;
+        try {
+            $data = DB::select("SELECT * FROM subscription_users
+                                      WHERE
+                                      CURRENT_DATE = DATE(DATE_ADD(DATE_ADD(subscription_date, INTERVAL 1 YEAR), INTERVAL -1 WEEK))
+                                      AND email_reminder = 0");
+        } catch (Exception $exception) {
+            $this->logException($exception);
+        }
+        return $data;
+    }
+
+    public function setEmailReminder($id, $hasNotified): int
+    {
+        $rowCount = -1;
+        try {
+            $rowCount = DB::table('subscription_users')
+                ->where('id',$id)
+                ->update(
+                    array('email_reminder'=>$hasNotified)
+                );
+        } catch (Exception $exception) {
+            $this->logException($exception);
+        }
+
+        return $rowCount;
+    }
+
     /**
      * Log Exceptions into the log file.
      * Log Query and Bindings separately for any SQL exceptions
@@ -56,4 +87,6 @@ class SubscriptionUserRepository implements SubscriptionUserRepositoryInterface
             Log::error($e->getSql(), $e->getBindings());
         }
     }
+
+
 }
